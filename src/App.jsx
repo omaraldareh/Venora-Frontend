@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ChooseAccount from './pages/ChooseAccount';
-import Otp from './pages/Otp';
+import Otp from './pages/otp';
 import ForgetPassword from './pages/ForgetPassword';
 import ResetPassword from './pages/ResetPassword';
 import Browse from './pages/Browse';
