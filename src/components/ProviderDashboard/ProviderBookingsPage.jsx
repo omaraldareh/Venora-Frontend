@@ -274,7 +274,7 @@ const ProviderBookingsPage = () => {
                     alt={selectedBooking.hall.name}
                     className="w-full h-44 object-cover group-hover:scale-105 transition duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex items-end p-4">
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent flex items-end p-4">
                     <p className="text-white text-xs font-bold flex items-center gap-1">
                       <MapPin size={12} /> Hall Premise Snapshot
                     </p>
