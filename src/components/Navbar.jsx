@@ -87,7 +87,7 @@ const Navbar = () => {
           <Link to="/" onClick={() => setOpen(false)} className="cursor-pointer hover:text-[#D4A353]">Home</Link>
           <Link to="/browse" onClick={() => setOpen(false)} className="cursor-pointer hover:text-[#D4A353]">Venues</Link>
           <a href="/#how-it-works" onClick={() => setOpen(false)} className="cursor-pointer hover:text-[#D4A353]">How it Works</a>
-          <span className="cursor-pointer hover:text-[#D4A353]">About</span>
+          <Link to="/AboutUs" onClick={() => setOpen(false)} className="cursor-pointer hover:text-[#D4A353]">About</Link>
           <a href="/#contact" onClick={() => setOpen(false)} className="cursor-pointer hover:text-[#D4A353]">Contact</a>
           {user ? (
             <>
