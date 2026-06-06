@@ -1,5 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from 'react';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -22,8 +23,13 @@ import AllBookings from './pages/Admin/AllBookings';
 import AllReviews from './pages/Admin/AllReviews';
 import Favourite from './pages/Favourite';
 import About from './pages/About';
+import API from './api/axios';
 // import ReviewsSection from './components/ReviewLayout/ReviewsSection';
 function App() {
+
+  useEffect(() => {
+    API.get("/health").catch(() =>{});
+  }, []);
 
   return (
     <>
