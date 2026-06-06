@@ -44,7 +44,8 @@ const formik = useFormik({
   }),
 
 
-  ononSubmit: async (values, { setSubmitting, setFieldError }) => {
+// ✅ الصح: انتبه للأقواس { } حول الـ Helpers
+onSubmit: async (values, { setSubmitting, setFieldError }) => {
   try {
     const response = await API.post('/auth/register', { ...values, role });
 
@@ -65,8 +66,7 @@ const formik = useFormik({
   } finally {
     setSubmitting(false);
   }
-}
-});
+}});
 
   return (
     <div className="min-h-screen w-full bg-[#030712] flex items-stretch text-white font-sans">
