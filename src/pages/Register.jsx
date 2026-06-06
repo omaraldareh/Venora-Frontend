@@ -44,19 +44,28 @@ const formik = useFormik({
   }),
 
 
-  onSubmit: async (values) => {
-    try {
-      const response = await API.post('/auth/register', {...values,role});
+  ononSubmit: async (values, { setSubmitting, setFieldError }) => {
+  try {
+    const response = await API.post('/auth/register', { ...values, role });
 
-      console.log(response.data);
-
-      alert('OTP Sent Successfully');
-
+    console.log(response.data);
+    alert('OTP Sent Successfully');
     navigate(`/verifyOtp?email=${values.email}&type=register`);
 
-    } catch (error) {
-      console.log(error.response.data);
-    }}
+  } catch (error) {
+    console.log(error.response?.data);
+    
+    const serverMessage = error.response?.data?.message || "";
+    
+    if (serverMessage.toLowerCase().includes("email") || error.response?.status === 400) {
+      setFieldError('email', 'This email is already registered.');
+    } else {
+      alert(serverMessage || 'Something went wrong. Please try again.');
+    }
+  } finally {
+    setSubmitting(false);
+  }
+}
 });
 
   return (
