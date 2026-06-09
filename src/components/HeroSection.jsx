@@ -1,8 +1,22 @@
 import heroImg from "../assets/images/hero-bg.png";
 import { ArrowUpRight, ShieldCheck, Handshake, Calendar, Headset } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
 const HeroSection = () => {
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const getButtonConfig = () => {
+    if (!user) {
+      return { text: "Become a Partner", to: "/register?role=provider" };
+    }
+    if (user.role === "provider") {
+      return { text: "Go to Dashboard", to: "/Provider/dashboard" };
+    }
+    return { text: "My Bookings", to: "/MyBookings" }; 
+  };
+
+  const buttonConfig = getButtonConfig();
+
   return (
     <>
       <main className="relative min-h-screen w-full overflow-hidden">
@@ -46,46 +60,46 @@ const HeroSection = () => {
                 <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </Link>
               <Link 
-              to={user && user.role === "provider" ? "/Provider/dashboard" : "/register?role=provider"} 
-              className="border border-white/30 hover:border-white hover:bg-white/10 text-white px-8 py-4 rounded-xl font-bold text-sm md:text-base transition-all duration-300 flex items-center justify-center text-center"
-            >
-              {user && user.role === "provider" ? "Go to Dashboard" : "Become a Partner"}
-            </Link>
-             </div>
-
-                <div className='grid grid-cols-2 md:grid-cols-4 gap-6 mt-4'>
-          <div className="flex items-start gap-3">
-            <ShieldCheck className="text-[#D4A353] w-5 h-5 mt-0.5 shrink-0" />
-            <div>
-              <p className="text-white font-semibold text-sm">Verified Venues</p>
-              <p className="text-gray-400 text-xs mt-0.5">Trusted and reviewed</p>
+                to={buttonConfig.to} 
+                className="border border-white/30 hover:border-white hover:bg-white/10 text-white px-8 py-4 rounded-xl font-bold text-sm md:text-base transition-all duration-300 flex items-center justify-center text-center"
+              >
+                {buttonConfig.text}
+              </Link>
             </div>
-          </div>
 
-          <div className="flex items-start gap-3">
-            <Handshake className="text-[#D4A353] w-5 h-5 mt-0.5 shrink-0" />
-            <div>
-              <p className="text-white font-semibold text-sm">Best Price</p>
-              <p className="text-gray-400 text-xs mt-0.5">Get the best deals</p>
-            </div>
-          </div>
+            <div className='grid grid-cols-2 md:grid-cols-4 gap-6 mt-4'>
+              <div className="flex items-start gap-3">
+                <ShieldCheck className="text-[#D4A353] w-5 h-5 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-white font-semibold text-sm">Verified Venues</p>
+                  <p className="text-gray-400 text-xs mt-0.5">Trusted and reviewed</p>
+                </div>
+              </div>
 
-          <div className="flex items-start gap-3">
-            <Calendar className="text-[#D4A353] w-5 h-5 mt-0.5 shrink-0" />
-            <div>
-              <p className="text-white font-semibold text-sm">Easy Booking</p>
-              <p className="text-gray-400 text-xs mt-0.5">Quick and secure</p>
-            </div>
-          </div>
+              <div className="flex items-start gap-3">
+                <Handshake className="text-[#D4A353] w-5 h-5 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-white font-semibold text-sm">Best Price</p>
+                  <p className="text-gray-400 text-xs mt-0.5">Get the best deals</p>
+                </div>
+              </div>
 
-          <div className="flex items-start gap-3">
-            <Headset className="text-[#D4A353] w-5 h-5 mt-0.5 shrink-0" />
-            <div>
-              <p className="text-white font-semibold text-sm">24/7 Support</p>
-              <p className="text-gray-400 text-xs mt-0.5">We are here for you</p>
+              <div className="flex items-start gap-3">
+                <Calendar className="text-[#D4A353] w-5 h-5 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-white font-semibold text-sm">Easy Booking</p>
+                  <p className="text-gray-400 text-xs mt-0.5">Quick and secure</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Headset className="text-[#D4A353] w-5 h-5 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-white font-semibold text-sm">24/7 Support</p>
+                  <p className="text-gray-400 text-xs mt-0.5">We are here for you</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
           </div>
         </div>

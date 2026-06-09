@@ -24,6 +24,7 @@ import AllReviews from './pages/Admin/AllReviews';
 import Favourite from './pages/Favourite';
 import About from './pages/About';
 import API from './api/axios';
+import MyBookings from './pages/MyBookings';
 // import ReviewsSection from './components/ReviewLayout/ReviewsSection';
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
         <Route path='/admin/reviews' element={<AllReviews />} />
         <Route path='/MyFavourite' element={<Favourite />} />
         <Route path='/AboutUs' element={<About />} />
+        <Route path="MyBookings" element={<MyBookings />} />
       </Routes>
     </BrowserRouter>
     </>

@@ -666,11 +666,11 @@ const BookingPage = () => {
             </div>
 
             <button
-              onClick={() => navigate("/my-bookings")}
+              onClick={() => navigate("/MyBookings")}
               className="w-full bg-[#D4A353] hover:bg-[#e2b760] text-[#020817] font-bold py-4 rounded-xl transition-all duration-200 text-sm cursor-pointer shadow-lg shadow-[#D4A353]/10"
             >
               View My Bookings
-            </button>
+            </button> 
 
             <button
               onClick={() => setShowSuccessModal(false)}
