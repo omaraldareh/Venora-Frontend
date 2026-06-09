@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -25,12 +25,69 @@ import Favourite from './pages/Favourite';
 import About from './pages/About';
 import API from './api/axios';
 import MyBookings from './pages/MyBookings';
-// import ReviewsSection from './components/ReviewLayout/ReviewsSection';
+import NotFound from './pages/NotFound';
+
 function App() {
+  const [isServerReady, setIsServerReady] = useState(false);
+  const [loadingText, setLoadingText] = useState("Waking up the server, please wait...");
 
   useEffect(() => {
-    API.get("/health").catch(() =>{});
+    let isMounted = true;
+    
+
+    const messages = [
+      "Waking up the server, please wait...",
+      "Preparing luxury venues for you...",
+      "Connecting to the database...",
+      "Almost there, finalizing connection..."
+    ];
+    let msgIndex = 0;
+
+    const intervalId = setInterval(() => {
+      msgIndex = (msgIndex + 1) % messages.length;
+      if (isMounted) setLoadingText(messages[msgIndex]);
+    }, 6000);
+
+    const checkServerHealth = async () => {
+      try {
+        await API.get("/health");
+        if (isMounted) {
+          setIsServerReady(true);
+          clearInterval(intervalId);
+        }
+      } catch (error) {
+        console.log("Server is still sleeping, retrying in 3 seconds...");
+        console.log(error);
+        setTimeout(checkServerHealth, 3000);
+      }
+    };
+
+    checkServerHealth();
+
+    return () => {
+      isMounted = false;
+      clearInterval(intervalId);
+    };
   }, []);
+
+  if (!isServerReady) {
+    return (
+      <div className="min-h-screen bg-[#020817] flex flex-col justify-center items-center px-4">
+        <div className="relative flex items-center justify-center mb-6">
+          <div className="animate-ping absolute inline-flex h-20 w-20 rounded-full bg-[#D4A353]/10 opacity-75"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#D4A353]"></div>
+        </div>
+        
+        <h1 className="text-2xl font-serif text-white tracking-widest mb-2 font-bold animate-pulse">
+          VENORA
+        </h1>
+
+        <p className="text-gray-400 text-sm font-mono tracking-wide max-w-xs text-center duration-500 transition-all">
+          {loadingText}
+        </p>
+      </div>
+    );
+  }
 
   return (  
     <>
@@ -59,10 +116,11 @@ function App() {
         <Route path='/MyFavourite' element={<Favourite />} />
         <Route path='/AboutUs' element={<About />} />
         <Route path="MyBookings" element={<MyBookings />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
     </>
   )
 }
 
-export default App
+export default App;
